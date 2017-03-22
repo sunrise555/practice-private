@@ -20,6 +20,8 @@ public class BinaryTreeExpression2 {
         BinarySearchTree<Token> bst = new BinarySearchTree<Token>();
         bst.root = e.expression();
         bst.postOrder(bst.root);
+        System.out.println();
+        bst.midOrder(bst.root);
     }
 
     public BinaryTreeExpression2() throws IOException {

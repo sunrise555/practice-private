@@ -29,6 +29,9 @@ public class BinaryTreeExpression {
 		System.out.println();
 		System.out.println("中序遍历结果：");
 		bst.midOrder(bst.root);//{INT, 1} {MINUS, -} {INT, 2} {PLUS, +} {INT, 3} {MINUS, -} {INT, 4} 
+		System.out.println();
+		System.out.println("后序遍历并求值的结果：");
+		System.out.println(bst.postOrderAndCalculate(bst.root));
 	}
 	
 	public BinaryTreeExpression() throws IOException {

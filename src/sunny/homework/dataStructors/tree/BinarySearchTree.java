@@ -5,6 +5,9 @@ import java.util.Iterator;
 import java.util.Queue;
 import java.util.Stack;
 
+import sunny.homework.decorator.Token;
+import sunny.homework.decorator.Token.TokenType;
+
 /**
  * Created by sunny_hbqq on 2017/3/18.
  */
@@ -116,6 +119,38 @@ public class BinarySearchTree<T  extends Comparable<T>> {
 			postOrder(cur.right);
 		}
 		System.out.print(cur.data + " ");
+	}
+	
+	/**
+	 * 后序遍历并对表达式求值
+	 * @param cur
+	 * @return
+	 * Created 2017年3月22日
+	 */
+	public int postOrderAndCalculate(Node<Token> cur) {
+		int leftData = 0;
+		int rightData = 0;
+		if (cur.left != null) {
+			leftData = postOrderAndCalculate(cur.left);
+		}
+		if (cur.right != null) {
+			rightData = postOrderAndCalculate(cur.right);
+		}
+		if(cur.data.tokenType == TokenType.INT)
+			return (int)cur.data.value;
+		switch (cur.data.tokenType) {
+		case PLUS:
+			return leftData + rightData;
+		case MINUS:
+			return leftData - rightData;
+		case MULT:
+			return leftData * rightData;
+		case DIV:
+			return leftData / rightData;
+		default:
+			break;
+		}
+		return 0;
 	}
 
 	/**

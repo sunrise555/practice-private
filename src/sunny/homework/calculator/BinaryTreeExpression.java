@@ -36,46 +36,58 @@ public class BinaryTreeExpression {
 	 */
 	//存在问题：无法处理1-2+3-4的情况
 	public Node<Token> expression() {
-		Node<Token> left = term();
-		
-		try {
-			if(match(TokenType.PLUS)) {
-				Node<Token> root = new Node<Token>(new Token(TokenType.PLUS, "+"));
-				root.left = left;
-				root.right = term();
-				return root;
-			}else if(match(TokenType.MINUS)) {
-				Node<Token> root = new Node<Token>(new Token(TokenType.MINUS, "-"));
-				root.left = left;
-				root.right = term();
-				return root;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return left;
-	}
+        Node<Token> left = term();
+        Token op = null;
+        try {
+        	op = ts.getToken();
+        	Node<Token> root = null;
+        	while(op.tokenType == TokenType.PLUS || op.tokenType == TokenType.MINUS) {
+        		ts.consumeToken();
+        		//Node<Token> right = term();
+	            if (op.tokenType == TokenType.PLUS) {
+	            	root = new Node<>(new Token(Token.TokenType.PLUS, "+"));
+	                root.left = left;
+	                root.right = term();
+	            }
+	            else  {
+	            	root = new Node<>(new Token(Token.TokenType.MINUS, "-"));
+	                root.left = left;
+	                root.right = term();
+	            }
+	            left = root;
+	            op = ts.getToken();
+        	}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return left;
+    }
 	
 	private Node<Token> term() {
 		Node<Token> left = factor();
-		
-		try {
-			if(match(TokenType.MULT)) {
-				Node<Token> root = new Node<Token>(new Token(TokenType.MULT, "*"));
-				root.left = left;
-				root.right = factor();
-				return root;
-			}
-			else if(match(TokenType.DIV)) {
-				Node<Token> root = new Node<Token>(new Token(TokenType.DIV, "/"));
-				root.left = left;
-				root.right = factor();
-				return root;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+		Token op = null;
+        try {
+        	op = ts.getToken();
+        	Node<Token> root = null;
+        	while(op.tokenType == TokenType.MULT || op.tokenType == TokenType.DIV) {
+        		ts.consumeToken();
+        		//Node<Token> right = term();
+	            if (op.tokenType == TokenType.MULT) {
+	            	root = new Node<>(new Token(Token.TokenType.MULT, "*"));
+	                root.left = left;
+	                root.right = term();
+	            }
+	            else  {
+	            	root = new Node<>(new Token(Token.TokenType.DIV, "/"));
+	                root.left = left;
+	                root.right = term();
+	            }
+	            left = root;
+	            op = ts.getToken();
+        	}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 		return left;
 	}
 	

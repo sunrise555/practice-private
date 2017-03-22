@@ -20,10 +20,15 @@ public class BinaryTreeExpression {
 	
 	//测试使用
 	public static void main(String[] args) throws IOException {
+		//输入1-2+3-4
 		BinaryTreeExpression bte = new BinaryTreeExpression();
 		BinarySearchTree<Token> bst = new BinarySearchTree<Token>();
 		bst.root = bte.expression();
-		bst.postOrder(bst.root);
+		System.out.println("后序遍历结果：");
+		bst.postOrder(bst.root);//{INT, 1} {INT, 2} {MINUS, -} {INT, 3} {PLUS, +} {INT, 4} {MINUS, -} 
+		System.out.println();
+		System.out.println("中序遍历结果：");
+		bst.midOrder(bst.root);//{INT, 1} {MINUS, -} {INT, 2} {PLUS, +} {INT, 3} {MINUS, -} {INT, 4} 
 	}
 	
 	public BinaryTreeExpression() throws IOException {
@@ -34,7 +39,6 @@ public class BinaryTreeExpression {
 	 * 构造表达式的二叉树，并返回二叉树的根节点
 	 * @return 根节点
 	 */
-	//存在问题：无法处理1-2+3-4的情况
 	public Node<Token> expression() {
         Node<Token> left = term();
         Token op = null;
@@ -108,6 +112,12 @@ public class BinaryTreeExpression {
 				if (!match(TokenType.RPAR))
 					assert false;
 				return left;
+			}
+			//对负数的处理，将负号与数字作为整体存储在token.value中
+			else if(match(TokenType.MINUS)){
+				Node<Token> temp = factor();
+				temp.data.value = 0 - (int)temp.data.value;
+				return temp;
 			}
 			else {
 				throw new IOException("Illegal Expression!");

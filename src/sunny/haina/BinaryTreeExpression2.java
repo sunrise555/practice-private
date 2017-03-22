@@ -8,7 +8,10 @@ import sunny.homework.decorator.MyTokenStream;
 import sunny.homework.decorator.Token;
 import sunny.homework.decorator.TokenStream;
 import sunny.homework.decorator.Token.TokenType;
-
+/**
+ * 
+ * Created by Haina
+ */
 public class BinaryTreeExpression2 {
 	public TokenStream ts;
 
@@ -23,34 +26,28 @@ public class BinaryTreeExpression2 {
         ts = new MyTokenStream(System.in);
     }
 
-    //存在问题，无法处理1-2+3-4的情况
+    //存在问题，无法处理1-2+3-4的情况，改正代码见sunny.homework.calculator.BinaryTreeExpression
     public Node<Token> expression() {
-        Node<Token> left = term();
-        Token op = null;
-        try {
-        	op = ts.getToken();
-        	Node<Token> root = null;
-        	while(op.tokenType == TokenType.PLUS || op.tokenType == TokenType.MINUS) {
-        		ts.consumeToken();
-        		Node<Token> right = term();
-	            if (op.tokenType == TokenType.PLUS) {
-	            	root = new Node<>(new Token(Token.TokenType.PLUS, "+"));
-	                root.left = left;
-	                root.right = right;
-	            }
-	            else  {
-	            	root = new Node<>(new Token(Token.TokenType.MINUS, "-"));
-	                root.left = left;
-	                root.right = right;
-	            }
-	            op = ts.getToken();
-        	}
-        	return root;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+		Node<Token> left = term();
+		
+		try {
+			if(match(TokenType.PLUS)) {
+				Node<Token> root = new Node<Token>(new Token(TokenType.PLUS, "+"));
+				root.left = left;
+				root.right = term();
+				return root;
+			}else if(match(TokenType.MINUS)) {
+				Node<Token> root = new Node<Token>(new Token(TokenType.MINUS, "-"));
+				root.left = left;
+				root.right = term();
+				return root;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return left;
+	}
+    
 
     private Node<Token> term() {
         Node<Token> left = factor();

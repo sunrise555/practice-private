@@ -12,7 +12,7 @@ import sunny.homework.decorator.TokenStream;
 
 /**
  * 四则运算计算器
- * Created by Haina on 2017年3月16日
+ * Created by Haina
  */
 public class ComplexExpression {
 	public TokenStream ts;

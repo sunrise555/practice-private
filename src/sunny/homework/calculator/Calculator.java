@@ -44,10 +44,10 @@ public class Calculator {
 					ts.consumeToken();
 				} else {
 					binaryCalc(numbers, operators);
-					if(preOrder(operators.getTop().tokenType,
-							ts.getToken().tokenType)  > 0)
-						binaryCalc(numbers, operators);
 					operators.push(ts.getToken());
+//					if(preOrder(operators.getTop().tokenType,
+//							ts.getToken().tokenType)  > 0)
+//						binaryCalc(numbers, operators);
 					ts.consumeToken();
 				}
 			}

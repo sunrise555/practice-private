@@ -29,7 +29,7 @@ public class BinarySearchTree<T  extends Comparable<T>> {
 		Node<T> current = root;
 		while (true) {
 			// 如果 i 比当前结点的值小
-			if (i.compareTo((T) current.data) < 0) {
+			if (i.compareTo(current.data) < 0) {
 				if (current.left != null) {
 					current = current.left;
 				} else {

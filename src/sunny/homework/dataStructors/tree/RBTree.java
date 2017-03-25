@@ -13,17 +13,55 @@ public class RBTree<T extends Comparable<T>> {
 
 	public static void main(String[] args) {
 		RBTree<Integer> rbt = new RBTree<Integer>();
+
+		rbt.put(12);
 		rbt.put(1);
+		rbt.put(9);
 		rbt.put(2);
-		rbt.put(3);
-		rbt.put(4);
-		rbt.put(5);
-		rbt.put(6);
+		rbt.put(0);
+		rbt.put(11);
 		rbt.put(7);
+		rbt.put(19);
+		rbt.put(4);
+		rbt.put(15);
+		rbt.put(18);
+		rbt.put(5);
+		rbt.put(14);
+		rbt.put(13);
+		rbt.put(10);
+		rbt.put(16);
+		rbt.put(6);
+		rbt.put(3);
 		rbt.put(8);
+		rbt.put(17);
 		rbt.midOrder(rbt.root);
 		System.out.println();
 		System.out.println(rbt.height(rbt.root));
+		rbt.delete(rbt.contains(12));
+		rbt.delete(rbt.contains(1));
+		rbt.delete(rbt.contains(9));
+		rbt.delete(rbt.contains(2));
+		rbt.delete(rbt.contains(0));
+		rbt.delete(rbt.contains(11));
+		rbt.delete(rbt.contains(7));
+		rbt.delete(rbt.contains(19));
+		rbt.delete(rbt.contains(4));
+		rbt.delete(rbt.contains(15));
+		rbt.delete(rbt.contains(18));
+		rbt.delete(rbt.contains(5));
+		rbt.delete(rbt.contains(14));
+		rbt.delete(rbt.contains(13));
+		rbt.delete(rbt.contains(10));
+		rbt.delete(rbt.contains(16));
+		rbt.delete(rbt.contains(6));
+		rbt.delete(rbt.contains(3));
+		rbt.delete(rbt.contains(8));
+		rbt.delete(rbt.contains(17));
+		rbt.midOrder(rbt.root);
+		System.out.println();
+		System.out.println(rbt.height(rbt.root));
+
+
 	}
 
 	/**
@@ -37,7 +75,7 @@ public class RBTree<T extends Comparable<T>> {
 		if (contains(data) != null)
 			return;
 		if (root == null) {
-			root = new RBNode<T>(data, BLACK);
+			root = new RBNode<>(data, BLACK);
 			return;
 		}
 
@@ -48,7 +86,7 @@ public class RBTree<T extends Comparable<T>> {
 				if (cur.left != null) {
 					cur = cur.left;
 				} else {
-					cur.left = new RBNode<T>(data, RED);
+					cur.left = new RBNode<>(data, RED);
 					cur.left.parent = cur;
 					break;
 				}
@@ -56,7 +94,7 @@ public class RBTree<T extends Comparable<T>> {
 				if (cur.right != null) {
 					cur = cur.right;
 				} else {
-					cur.right = new RBNode<T>(data, RED);
+					cur.right = new RBNode<>(data, RED);
 					cur.right.parent = cur;
 					break;
 				}
@@ -112,9 +150,8 @@ public class RBTree<T extends Comparable<T>> {
 
 	// 判断color
 	private boolean isRed(RBNode<T> node) {
-		if (node == null) // 节点为null与节点为黑色是同一效果
-			return false;
-		return node.color == RED;
+		// 节点为null与节点为黑色是同一效果
+		return node != null && node.color == RED;
 	}
 
 	// 颜色变换
@@ -195,11 +232,11 @@ public class RBTree<T extends Comparable<T>> {
 
 		while (current != null) {
 			// 找到
-			if (t.compareTo((T) current.data) == 0) {
+			if (t.compareTo(current.data) == 0) {
 				return current;
 			}
 			// 归于左子树
-			else if (t.compareTo((T) current.data) < 0) {
+			else if (t.compareTo(current.data) < 0) {
 				current = current.left;
 			}
 			// 归于右子树
@@ -216,6 +253,8 @@ public class RBTree<T extends Comparable<T>> {
 	 * @param cur
 	 */
 	public void midOrder(RBNode<T> cur) {
+		if (cur == null)
+			return;
 		if (cur.left != null)
 			midOrder(cur.left);
 		System.out.print(cur.data + " ");
@@ -231,5 +270,181 @@ public class RBTree<T extends Comparable<T>> {
 		int leftHeight = height(cur.left);
 		int rightHeight = height(cur.right);
 		return 1 + (leftHeight > rightHeight ? leftHeight : rightHeight);
+	}
+
+	/**
+	 * 删除操作（非递归）
+	 * @param n
+	 */
+	public void delete(RBNode<T> n) {
+		if (n == null || null == contains(n.data))
+			return;
+
+		RBNode<T> p = n.parent;
+		RBNode<T> copy = n;
+		// 待删除节点有2个外部子节点
+		if (n.left != null && n.right != null) {
+			// 后继节点
+			RBNode<T> back = successor(n);
+			n.data = back.data;
+			delete(back);
+			return;
+		}
+		// 待删除节点没有外部子节点
+		else if (n.left == null && n.right == null) {
+			if (isLeft(n))
+				p.left = null;
+			else if (isRight(n))
+				p.right = null;
+			else {// 说明待删除的节点子节点为null，且父节点为null，此时树中仅剩根节点
+				root = null;
+				return;
+			}
+		}
+		// 待删除节点只有一个外部子节点
+		else {
+			if (isLeft(n)) {
+				p.left = n.left == null?n.right:n.left;
+				p.left.parent = p;
+			}
+			else if (isRight(n)) {
+				p.right = n.left == null?n.right:n.left;
+				p.right.parent = p;
+			}
+			// n为根节点
+			else {
+				root = n.left == null?n.right:n.left;
+				root.parent = null;
+				root.color = BLACK;
+				return;
+			}
+			if (isRed(n)) {
+				return;
+			}
+			// 删除节点为黑色，且有1个红色子节点，将子节点颜色变黑,结束算法
+			else if (isRed(n.left)) {
+				n.left.color = BLACK;
+				return;
+			}else if (isRed(n.right)) {
+				n.right.color = BLACK;
+				return;
+			}else {
+				// 子节点一定为黑色,子节点作为新的双黑节点
+				n = n.left == null?n.right:n.left;
+			}
+		}
+
+		if (!isRed(n))
+			fixAfterDelete(n,p);
+	}
+
+	// 双黑节点出现后的调整,输入节点及其父节点
+	private void fixAfterDelete(RBNode<T> n, RBNode<T> p) {
+		// 兄弟节点，一定不为null
+		RBNode<T> brother;
+		if (p.left == null || p.right == null)
+			brother = p.left == null?p.right:p.left;
+		else
+			brother = isLeft(n)?p.right:p.left;
+		// 兄弟节点为红色，先做颜色变换和旋转操作
+		if (isRed(brother)) {
+			// 父节点与兄弟交换颜色
+			boolean temp = p.color;
+			p.color = brother.color;
+			brother.color = temp;
+			// 兄弟在右，则左旋；反之
+			if (isRight(brother))
+				left_rotate(p);
+			else
+				right_rotate(p);
+			// 得到新的兄弟节点
+			brother = p.left == null?p.right:p.left;
+		}
+		// 兄弟节点存在红色子节点
+		if (isRed(brother.left) || isRed(brother.right)) {
+			// 红色子节点
+			RBNode<T> redC = isRed(brother.left)?brother.left:brother.right;
+			fixWhenBrotherHasRed(p,brother,redC);
+		}
+		//
+		else {
+			brother.color = RED;
+			if (isRed(p)) {
+				p.color = BLACK;
+			}else {
+				// 若父节点原来为black，则父节点作为新的双黑节点继续调整，直到根节点
+				if (p.parent != null)
+					fixAfterDelete(p,p.parent);
+			}
+		}
+	}
+
+	// 当兄弟节点存在红色子节点的情况下进行调整
+	// 输入参数：父节点、兄弟节点、红色子节点
+	private void fixWhenBrotherHasRed(RBNode<T> p, RBNode<T> b, RBNode<T> c) {
+		if (isRight(b) && isLeft(c)) {
+			right_rotate(b);
+			// 近侄子和兄弟互换，变为远侄子情况
+			RBNode<T> temp;
+			temp = c;
+			c = b;
+			b = temp;
+		}
+		if (isLeft(b) && isRight(c)) {
+			left_rotate(b);
+			// 近侄子和兄弟互换，变为远侄子情况
+			RBNode<T> temp;
+			temp = c;
+			c = b;
+			b = temp;
+		}
+		b.color = p.color;
+		p.color = BLACK;
+		c.color = BLACK;
+		if (isRight(b))
+			left_rotate(p);
+		else
+			right_rotate(p);
+	}
+
+	/**
+	 * 查找中序后继
+	 * @param n
+	 * @return
+	 */
+	private RBNode<T> successor(RBNode<T> n) {
+		if (null == n)
+			return null;
+
+		RBNode<T> p;
+		if (n.right != null) {
+			// 右子树中的最小值
+			p = n.right;
+			while (p.left != null) {
+				p = p.left;
+			}
+			return p;
+		} else {
+			p = n.parent;
+			// 父节点不为null，且当前节点是父节点的右孩子
+			while (p != null && p.left != n) {
+				n = p;
+				p = n.parent;
+			}
+			// 若当前节点是父节点的左孩子，直接返回父节点
+			return p;
+		}
+	}
+
+	private boolean isLeft(RBNode<T> n) {
+		if (n == null || n.parent == null)
+			return false;
+		return n.parent.left == n;
+	}
+
+	private boolean isRight(RBNode<T> n) {
+		if (n == null || n.parent == null)
+			return false;
+		return n.parent.right == n;
 	}
 }

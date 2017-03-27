@@ -281,7 +281,6 @@ public class RBTree<T extends Comparable<T>> {
 			return;
 
 		RBNode<T> p = n.parent;
-		RBNode<T> copy = n;
 		// 待删除节点有2个外部子节点
 		if (n.left != null && n.right != null) {
 			// 后继节点

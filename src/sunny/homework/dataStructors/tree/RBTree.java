@@ -365,7 +365,7 @@ public class RBTree<T extends Comparable<T>> {
 			RBNode<T> redC = isRed(brother.left)?brother.left:brother.right;
 			fixWhenBrotherHasRed(p,brother,redC);
 		}
-		//
+		//兄弟节点存在2个黑色子节点，包含NIL节点
 		else {
 			brother.color = RED;
 			if (isRed(p)) {

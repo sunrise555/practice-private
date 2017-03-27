@@ -12,8 +12,8 @@ public class AVLTree<T extends Comparable<T>> {
 		avl.insert(5);
 		avl.insert(2);
 		avl.insert(6);
-		avl.insert(1);
-		avl.insert(3);
+		avl.insert(2);
+		avl.insert(2);
 		avl.insert(4);
 		avl.midOrder(avl.root);
 		avl.delete(avl.contains(6));
@@ -31,6 +31,8 @@ public class AVLTree<T extends Comparable<T>> {
 	 * @Created 2017Äê3ÔÂ23ÈÕ
 	 */
 	public void insert(T data) {
+		if (contains(data) != null)
+			return;
 		if (root == null) {
 			root = new AVLNode<T>(data);
 			return;

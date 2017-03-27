@@ -103,8 +103,8 @@ public class RBTree<T extends Comparable<T>> {
 		fixAfterPut(cur);
 	}
 
-	// 插入后作调整，如果父节点为红色，则说明必定有父节点 
-	//#传入的是父节点
+	// 插入后作调整，如果父节点为红色，则说明必定有父节点
+	// #传入的是父节点
 	private void fixAfterPut(RBNode<T> cur) {
 		if (isRed(cur)) {
 			// 节点为左孩子
@@ -112,7 +112,7 @@ public class RBTree<T extends Comparable<T>> {
 				// 叔叔为红色
 				if (isRed(cur.parent.right))
 					flipColors(cur);
-				//叔叔为黑色
+				// 叔叔为黑色
 				else {
 					if (isRed(cur.left)) {
 						cur.color = BLACK;
@@ -246,7 +246,7 @@ public class RBTree<T extends Comparable<T>> {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 递归型中序遍历
 	 * 
@@ -261,7 +261,7 @@ public class RBTree<T extends Comparable<T>> {
 		if (cur.right != null)
 			midOrder(cur.right);
 	}
-	
+
 	// 计算当前节点高度
 	private int height(RBNode<T> cur) {
 		if (null == cur)

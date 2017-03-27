@@ -22,6 +22,8 @@ public class BinaryTreeExpression2 {
         bst.postOrder(bst.root);
         System.out.println();
         bst.midOrder(bst.root);
+        System.out.println();
+        System.out.println(bst.postOrderAndCalculate(bst.root));
     }
 
     public BinaryTreeExpression2() throws IOException {
@@ -36,12 +38,12 @@ public class BinaryTreeExpression2 {
 			if(match(TokenType.PLUS)) {
 				Node<Token> root = new Node<Token>(new Token(TokenType.PLUS, "+"));
 				root.left = left;
-				root.right = term();
+				root.right = expression();
 				return root;
 			}else if(match(TokenType.MINUS)) {
 				Node<Token> root = new Node<Token>(new Token(TokenType.MINUS, "-"));
 				root.left = left;
-				root.right = term();
+				root.right = expression();
 				return root;
 			}
 		} catch (IOException e) {
@@ -58,13 +60,13 @@ public class BinaryTreeExpression2 {
             if (match(TokenType.MULT)) {
                 Node<Token> root = new Node<>(new Token(Token.TokenType.MULT, "*"));
                 root.left = left;
-                root.right = factor();
+                root.right = term();
                 return root;
             }
             else if(match(TokenType.DIV)){
                 Node<Token> root = new Node<>(new Token(Token.TokenType.DIV, "/"));
                 root.left = left;
-                root.right = factor();
+                root.right = term();
                 return root;
             }
         } catch (IOException e) {

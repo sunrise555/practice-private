@@ -1,5 +1,4 @@
 package sunny.homework.dataStructors.tree;
-
 /**
  * 红黑树类
  * 
@@ -147,7 +146,6 @@ public class RBTree<T extends Comparable<T>> {
 			}
 		}
 	}
-
 	// 判断color
 	private boolean isRed(RBNode<T> node) {
 		// 节点为null与节点为黑色是同一效果

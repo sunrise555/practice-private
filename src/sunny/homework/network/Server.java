@@ -11,7 +11,8 @@ import java.net.Socket;
 public class Server {
     public static void main(String[] args) throws IOException {
         // 在8080端口开启一个ServerSocket
-        ServerSocket ss = new ServerSocket(8080);
+        @SuppressWarnings("resource")
+		ServerSocket ss = new ServerSocket(8080);
         // 等待连接
         Socket conn = ss.accept();
         // Connected to the target VM, address: '127.0.0.1:2293', transport: 'socket'

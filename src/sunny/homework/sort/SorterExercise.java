@@ -34,4 +34,11 @@ public class SorterExercise {
 		}
 		return arr;
 	}
+	
+	/*使用一个最大堆和一个最小堆找出一个数列的中位数。
+	 * 这个数列的长度是未定的，随时都有会新的数加进来，要求你设计的系统必须随时可以给出当前时刻的中位数*/
+	// 解题思路：对arr先建立最大堆，再对结果建立最小堆，中位数即在数组中间
+	public static void getMidNum(int[] arr) {
+		
+	}
 }

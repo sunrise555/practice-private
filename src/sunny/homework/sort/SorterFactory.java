@@ -10,6 +10,9 @@ public class SorterFactory {
 		case "Insert":
 			sorter = new InsertSorter();
 			break;
+		case "Heap":
+			sorter = new HeapSort();
+			break;
 
 		default:
 			throw new Exception("类名不存在");

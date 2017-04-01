@@ -1,6 +1,9 @@
 package sunny.homework.sort;
 
-
+/**
+ * 堆排序(不稳定，时间复杂度O(nlogn),空间复杂度O(1))
+ * @Created by Sunny on 2017年4月1日
+ */
 public class HeapSort implements Sorter {
 	
 	@Override
@@ -17,7 +20,7 @@ public class HeapSort implements Sorter {
 		}
 	}
 	
-	// 嵌套类：堆
+	// 嵌套类：堆 O(lgn)
 	static class Heap{
 		// 调整最大堆，root的左右子树均满足堆的性质
 		static void maxHeapify(int[] arr, int length, int root) {
@@ -45,7 +48,7 @@ public class HeapSort implements Sorter {
 			}
 		}
 		
-		// 自底向上建堆
+		// 自底向上建堆 O(n)
 		static void buildUpHeap(int[] arr) {
 			if (arr.length < 1)
 				return;

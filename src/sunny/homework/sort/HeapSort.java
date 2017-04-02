@@ -8,7 +8,7 @@ public class HeapSort implements Sorter {
 	
 	@Override
 	public void sort(int[] arr) {
-		Heap.buildUpHeap(arr);
+		Heap.buildUpMaxHeap(arr);
 		
 		// 每次取出堆顶元素，与最后一个节点交换
 		for (int i = arr.length - 1; i > 0; i--) {
@@ -47,9 +47,35 @@ public class HeapSort implements Sorter {
 				maxHeapify(arr, length, largerPos);
 			}
 		}
+
+		// 调整最小堆
+		static void minHeapify(int[] arr, int length, int root) {
+			if(root > length)
+				return;
+
+			int leastPos = root;
+			int leftPos = 2 * root + 1;// 左孩子下标
+			int rightPos = 2 * root + 2;
+
+			// 找到左右子树中较大的值
+			if (leftPos < length && arr[leftPos] < arr[leastPos])
+				leastPos = leftPos;
+
+			if (rightPos < length && arr[rightPos] < arr[leastPos])
+				leastPos = rightPos;
+			if (root != leastPos) {
+				// 与根节点交换
+				int temp = arr[root];
+				arr[root] = arr[leastPos];
+				arr[leastPos] = temp;
+
+				// 将largerPos作为新的root，递归
+				minHeapify(arr, length, leastPos);
+			}
+		}
 		
-		// 自底向上建堆 O(n)
-		static void buildUpHeap(int[] arr) {
+		// 自底向上建最大堆 O(n)
+		static void buildUpMaxHeap(int[] arr) {
 			if (arr.length < 1)
 				return;
 			
@@ -58,6 +84,20 @@ public class HeapSort implements Sorter {
 			
 			while (lastNotLeaf >=0) {
 				maxHeapify(arr, arr.length, lastNotLeaf);
+				lastNotLeaf--;
+			}
+		}
+
+		// 自底向上建最小堆
+		static void buildUpMinHeap(int[] arr) {
+			if (arr.length < 1)
+				return;
+
+			// 最后一个非叶子节点lastNotLeaf的坐标：是最后一个节点的父亲
+			int lastNotLeaf = (arr.length - 2) / 2;
+
+			while (lastNotLeaf >=0) {
+				minHeapify(arr, arr.length, lastNotLeaf);
 				lastNotLeaf--;
 			}
 		}

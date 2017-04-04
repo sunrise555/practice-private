@@ -9,12 +9,12 @@ public class SorterExercise {
 	
 	public static void main(String[] args) {
 		int[] arr = {2,3,1,4,5,8,9,6,7};
-		arr = mDisSort(arr,3);
-		for (int i : arr) {
-			System.out.print(i + " ");
-		}
-		System.out.println();
-//		int[] midNum = getMidNum(arr);
+//		arr = mDisSort(arr,3);
+//		for (int i : arr) {
+//			System.out.print(i + " ");
+//		}
+//		System.out.println();
+		int[] midNum = getMidNum(arr);
 //		for (int num:midNum) {
 //			System.out.println(num);
 //		}
@@ -61,9 +61,11 @@ public class SorterExercise {
 	}
 
 	/*
+	 * 牛顿迭代法
 	 * 输入一个x，求出它的实数立方根
 	 * x的立方根一定位于[k,x/(k*k)]区域内
-	 * */
+	 *
+	 */
 	static double getCubeRoot(double num) {
 		double k = 1.0;
 
@@ -73,5 +75,33 @@ public class SorterExercise {
 
 		return k;
 
+	}
+
+	/*
+	 * 二分法求满足条件的最值
+	 * 有N条绳子，它们的长度分别Li的。从它们当中切出K条等长的绳子，这条绳子最长能有多长
+	 */
+	public double findCondition(int n, int k, double[] l) {
+		double high = Double.MAX_VALUE, low = 0.0;
+		final int MAX_ITER = 100;
+
+		for (int i = 0; i < MAX_ITER; i++)
+		{
+			double mid = (high + low) / 2;
+			if (meetCondition(n, k, l, mid))
+				low = mid;
+			else
+				high = mid;
+		}
+
+		return high;
+	}
+
+	public boolean meetCondition(int N, int K, double[] L, double mid) {
+		int num = 0;
+		for (int i = 0; i < N; i++)
+			num += (int)(L[i] / mid); // 当前K条绳的长度位mid
+		// 若条数小于K，则说明mid过大，应该high=mid
+		return num >= K;
 	}
 }

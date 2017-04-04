@@ -1,7 +1,7 @@
 package sunny.homework.sort;
 
 /**
- * 选择算法(贪心思想：O(n^2))
+ * 选择算法(不稳定，贪心思想：O(n^2))
  * @Created by Sunny on 2017年3月31日
  */
 public class ChooseSorter implements Sorter{

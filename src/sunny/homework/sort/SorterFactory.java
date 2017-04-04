@@ -13,6 +13,12 @@ public class SorterFactory {
 		case "Heap":
 			sorter = new HeapSort();
 			break;
+		case "Quick":
+			sorter = new QuickSorter();
+			break;
+		case "Merge":
+			sorter = new MergeSorter();
+			break;
 
 		default:
 			throw new Exception("类名不存在");

@@ -33,7 +33,9 @@ public class BinaryTreeExpression {
 		System.out.println("后序遍历并求值的结果：");
 		System.out.println(bst.postOrderAndCalculate(bst.root));
 	}
-	
+	public BinaryTreeExpression(String expression) {
+		ts = new MyTokenStream(expression);
+	}
 	public BinaryTreeExpression() throws IOException {
 		ts = new MyTokenStream(new BufferedInputStream(System.in));
 	}

@@ -28,6 +28,12 @@ public class MyTokenStream implements TokenStream {
 		this.expression = reader.readLine();
 		this.tokens = this.getTokens();
 	}
+	public MyTokenStream() {}
+	
+	public MyTokenStream(String expression) {
+		this.expression = expression;
+		this.tokens = this.getTokens();
+	}
 
 	private ArrayList<Token> getTokens() {
 		while (this.index != this.expression.length()) {

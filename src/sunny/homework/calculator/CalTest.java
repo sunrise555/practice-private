@@ -11,7 +11,7 @@ public class CalTest {
 	public static void main(String[] args) throws IOException {
 		InputStream in = System.in;
 		//输入正常表达式
-		int result = Calculator.calculate(in);
+		int result = NoRecursionCalculator.calculate(in);
 		System.out.println(result);
 		//输入后缀表达式
 		in = System.in;

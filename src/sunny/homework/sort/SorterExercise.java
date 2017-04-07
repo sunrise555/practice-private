@@ -8,13 +8,13 @@ package sunny.homework.sort;
 public class SorterExercise {
 	
 	public static void main(String[] args) {
-		int[] arr = {2,3,1,4,5,8,9,6,7};
+//		int[] arr = {2,3,1,4,5,8,9,6,7};
 //		arr = mDisSort(arr,3);
 //		for (int i : arr) {
 //			System.out.print(i + " ");
 //		}
 //		System.out.println();
-		int[] midNum = getMidNum(arr);
+//		int[] midNum = getMidNum(arr);
 //		for (int num:midNum) {
 //			System.out.println(num);
 //		}

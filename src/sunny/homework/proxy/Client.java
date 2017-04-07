@@ -11,7 +11,7 @@ public class Client {
 //		System.out.println("-----------------------------");
 //		s.getId(7);
 		// 生成$Proxy0.class文件 保存路径为：com/sun/proxy
-		System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
+		// System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
 		dynamicProxy();
 		
 		

@@ -30,6 +30,10 @@ public class DynamicProxyHandler implements InvocationHandler {
 			// 以 UTF-8 修改版格式写入此 String 的基本数据
 			//oos.writeUTF("sunny.homework.rpc.EchoServiceImpl");
 			oos.writeUTF("sunny.homework.calculator.BinaryTreeCaculator");
+			
+			// 线程测试
+			Thread.sleep(20000); //休眠20s
+			
 			oos.writeUTF(method.getName());
 			// 将参数类型、参数args对象写入流中
 			oos.writeObject(method.getParameterTypes());

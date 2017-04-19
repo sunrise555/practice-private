@@ -24,6 +24,6 @@ public class Client {
 		Calculator cal = (Calculator) Proxy.newProxyInstance(cl.getClassLoader(), 
 				new Class<?>[]{Calculator.class}, new DynamicProxyHandler());
 		String expression = "1+2-3";
-		System.out.println(expression + " 计算结果为：" + cal.calculate(expression));
+		System.out.println(expression + "client1 计算结果为：" + cal.calculate(expression));
 	}
 }

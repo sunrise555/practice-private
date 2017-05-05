@@ -8,8 +8,8 @@ package sunny.homework.sort;
  */
 public class CountSorter implements Sorter{
 	public static void main(String[] args) {
-		int[] arr = {1,2,3,4,3,4,2,5,6,3,6,1,98};
-		int[] arr2 = {1,2,3,4,3,4,2,5,6,3,6,1,98};
+		int[] arr = {1,2,3,4,3,44,2,5,6,3,6,1,98};
+		int[] arr2 = {1,2,3,4,3,44,2,5,6,3,6,1,98};
 		CountSorter cs = new CountSorter();
 		cs.sort(arr);
 		cs.notStableSort(arr2);
@@ -45,10 +45,11 @@ public class CountSorter implements Sorter{
 			c[i] += c[i-1];
 		}
 		
-		for (int i = 0; i < len; i++) {
+		// 该处不能使用int i = 0; i < len; i++,因为这样会相等元素的顺序变成逆序，不稳定
+		for (int i = len - 1; i >= 0; i--) {
 			// 将每个待排序的元素放置正确的位置
-			b[c[arr[i]] - 1] = arr[i];
-			c[arr[i]]--;// 对应的累积值减一，保证排序的稳定性
+			b[--c[arr[i]]] = arr[i];
+			// 对应的累积值减一，保证排序的稳定性
 		}
 		
 		for (int i = 0; i < len; i++) {

@@ -19,7 +19,7 @@ public class EpollClient {
 
             while (true) {
                 writeBuffer.rewind();
-                writeBuffer.flip();
+//                writeBuffer.flip();
                 socketChannel.write(writeBuffer);
                 readBuffer.clear();
                 socketChannel.read(readBuffer);

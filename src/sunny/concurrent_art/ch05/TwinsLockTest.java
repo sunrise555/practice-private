@@ -25,16 +25,21 @@ public class TwinsLockTest {
                 }
             }
         }
-        // Æô¶¯10¸öÏß³Ì
+        // å¯åŠ¨10ä¸ªçº¿ç¨‹
         for (int i = 0; i < 10 ; i++) {
             Worker w = new Worker();
             w.setDaemon(true);
             w.start();
         }
-        // Ã¿¸ô1Ãë»»ĞĞ
+        // æ¯éš”1sæ¢è¡Œ
         for (int i = 0; i < 10; i++) {
             Thread.sleep(1000);
             System.out.println();
         }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        new TwinsLockTest().test();
+        // çº¿ç¨‹åç§°æˆå¯¹è¾“å‡º
     }
 }

@@ -39,16 +39,17 @@ public class HomeWork {
 //		System.out.println(r);
 		
 		//测试primitive类型
-		//primitiveTest();
-		//System.out.println(0xf);
-//		System.out.println(((Long)1000L) == 1000);//true
-//        System.out.println(((Long)1000L) == Long.valueOf(1000));//false
-//        System.out.println(new Long(1).equals(1L));//true
-		int[] a = {1,4,2,54,66,73,2,6};
-		sort(a);
-		for (int i : a) {
-			System.out.print(i+",");
-		}
+		primitiveTest();
+		System.out.println(0xf);
+		System.out.println(((Long)1000L) == 1000);//true
+        System.out.println(((Long)1000L) == Long.valueOf(1000));//false
+        System.out.println(new Long(1).equals(1L));//true
+		System.out.println(1L == 1);
+//		int[] a = {1,4,2,54,66,73,2,6};
+//		sort(a);
+//		for (int i : a) {
+//			System.out.print(i+",");
+//		}
 	}
 	
 	/**
@@ -102,7 +103,8 @@ public class HomeWork {
 	 * 有一架天平，它有20个砝码，这20个砝码的重量分别为 1,3,9,27···3^19。
 	 * 只要被称的物品的重量为位于区间 [1,(3^20−1)/2] 的整数，就可以使用这架天平进行称量。
 	 * 假设物品一直放在天平的左边，现在给出每个物品的重量，请打印出称量的方案。输出格式为两组数字，
-	 * 第一组代表天平左边要放的砝码，第二组代表天平右边要放的砝码。这两组数中间用空格隔开。每一组内部的数使用逗号隔开。
+	 * 第一组代表天平左边要放的砝码，第二组代表天平右边要放的砝码。这两组数中间用空格隔开。
+	 * 每一组内部的数使用逗号隔开。
 	 * 如果天平的某一边不需要放砝码，那就打印 empty
 	 * @param w 物品重量
 	 * @return 天平两边需要放置砝码的重量
@@ -117,7 +119,8 @@ public class HomeWork {
 			r = w%3;
 			if(r==2) {
 				result[LEFT][pl++] = addW;
-				//???????????????????????????????
+				//在右边增加一个addW（3^n）重的砝码，
+				// 右边就相当于2*3^n+3^n = 1*3^(n+1)相当于将2消除。向高位移动
 				w = (w+1)/3;
 			}else if(r==1) {
 				result[RIGHT][pr++] = addW;
@@ -137,7 +140,6 @@ public class HomeWork {
         Integer d = 1;
         System.out.println(a == b);  // false
         System.out.println(a.equals(b)); // true
- 
         System.out.println(a == c); // false 
         System.out.println(a.equals(c)); // true
 
@@ -150,11 +152,18 @@ public class HomeWork {
         System.out.println(b == d);  // true
         System.out.println(b.equals(d)); // true
 
-        System.out.println(((Long)1L) == 1); // true
+        System.out.println((((Long)1L) == 1)+"(Long)1L) == 1"); // true
         System.out.println(new Long(1).equals(1)); // false
 
         Long e = 100L;
         Long f = 100L;
+//		public static Long valueOf(long l) {
+//			final int offset = 128;
+//			if (l >= -128 && l <= 127) { // will cache
+//				return LongCache.cache[(int)l + offset];
+//			}
+//			return new Long(l);
+//		}
         System.out.println(e == f);  // true
         e = 1000L;
         f = 1000L;
